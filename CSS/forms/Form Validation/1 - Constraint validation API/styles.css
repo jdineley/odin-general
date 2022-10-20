@@ -1,0 +1,43 @@
+* {
+    font-family: sans-serif;
+    font-size: 1em;
+  }
+
+  div {
+    width: 100%;
+    max-width: 15em;
+    margin: 1em auto;
+  }
+
+  label, input {
+    display: block;
+    width: 100%;
+  }
+
+  input {
+    padding: 0.5em;
+    border: 1px solid #666;
+    border-radius: 4px;
+  }
+
+  button {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .help {
+    display: none;
+    font-size: 0.8em;
+    text-align: center;
+    margin: 0.2em 0 1em 0;
+    color: #c00;
+  }
+
+  .invalid .help {
+    display: block;
+  }
+
+  .invalid label, .invalid input {
+    color: #c00;
+    border-color: #c00;
+  }
