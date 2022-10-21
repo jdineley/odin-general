@@ -28,9 +28,9 @@ let people = ['Smith, Mr. John', 'Davis, Ms Nicole', 'Robinson, Mrs. Rebecca', '
 // ]
 
 //match (\D+)\, (mr\.?|mrs\.?|dr\.?|ms\.?) (\D+)
-let regex2 = /(\D+)\, (mr\.?|mrs\.?|dr\.?|ms\.?) (\D+)/i
+let regex2 = /([a-z]+)\,\s(mr|mrs|dr|ms)\.?\s([a-z]+)/i
 //test ^\D+\, [md]rs?.? \D+$
-let regex3 = /^\D+\, [md]r?s?.? \D+$/i
+let regex3 = /^[a-z]+\,\s[md]r?s?.?\s[a-z]+$/i
 
 
 let namesExtract = people.map((person) => {
@@ -51,5 +51,58 @@ let namesExtract = people.map((person) => {
         return personObj
     } else {
         return 'invalid name';
+    }
+})
+
+let urls = ['https://www.google.com/gmail', 'http://www.medium.com', 'https://twitter.com/home'];
+
+let regex4 = /^https?:\/\/(w{3}\.)?\w+\.\w+\/?\w*$/
+let regex5 = /(https?):\/\/(www)?\.?(\w+)\.(\w+)\/?(\w+)?/
+// let pieces = [
+//     {
+//         type: 'schema',
+//         regex: /https?/
+//     },
+//     {
+//         type: 'subdomain',
+//         regex: /www/
+//     },
+//     {
+//         type: 'second_level_domain',
+//         regex: /\w+/
+//     },
+//     {
+//         type: 'top_level_domain',
+//         regex: /\w+/
+//     },
+//     {
+//         type: 'subdirectory',
+//         regex: /\w+/
+//     }
+// ]
+let pieces = ['schema', 'subdomain', 'second-level-domain', 'top-level-domain', 'subdirectory']
+
+// let urlSeparated = urls[0].match(regex5);
+
+
+let urlExtract = urls.map((url) => {
+    // console.log(regex4.test(url));
+    console.log(url.match(regex5))
+    let urlObj = {url: url};
+    if(regex4.test(url)){
+        urlObj.invalid = 'NO'
+        let urlSeparated = url.match(regex5);
+        // console.log(urlSeparated.length);
+        for(let i = 1; i < urlSeparated.length; i++){
+            if(urlSeparated[i]){
+                urlObj[pieces[i-1]] = urlSeparated[i]
+            } else {
+                urlObj[pieces[i-1]] = 'NA'
+            }
+        }
+    return urlObj;
+    } else {
+        urlObj.invalid = 'YES'
+        return urlObj;
     }
 })
